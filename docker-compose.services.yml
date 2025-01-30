@@ -1,0 +1,21 @@
+networks:
+  symfony-network:
+    name: symfony-network
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    volumes:
+      - /opt/docker/symfony/mysql:/var/lib/mysql:delegated
+    networks:
+      - symfony-network
+    ports:
+      - "8952:3306" # here goes your port to map
+    restart: unless-stopped

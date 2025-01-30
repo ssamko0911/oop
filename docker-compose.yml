@@ -1,0 +1,23 @@
+networks:
+  symfony-network:
+    name: symfony-network
+    external: true
+
+services:
+  app:
+    container_name: php
+    env_file:
+      - .env # remember to update according docker-compose.override.yml (db config, etc)
+    networks:
+      - symfony-network
+    restart: unless-stopped
+
+  web:
+    container_name: dev-caddy
+    depends_on:
+      - app
+    ports:
+      - "8950:80" # here goes your port to map
+    networks:
+      - symfony-network
+    restart: unless-stopped
