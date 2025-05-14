@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Attribute\Route;
+
+class HealthCheckController
+{
+    #[Route('/healthcheck', name: 'healthcheck', methods: ['GET'])]
+    public function healthCheck(): JsonResponse
+    {
+        return new JsonResponse([
+            'status' => 'ok',
+        ]);
+    }
+}
