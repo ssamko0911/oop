@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
-class HealthCheckController
+class HealthCheckController extends AbstractController
 {
     #[Route('/healthcheck', name: 'healthcheck', methods: ['GET'])]
     public function healthCheck(): JsonResponse
