@@ -15,4 +15,10 @@ class HomeController extends AbstractController
             'user' => $this->getUser(),
         ]);
     }
+
+    #[Route('/password/generate', name: 'password_generate', methods: ['GET'])]
+    public function generatePassword(): Response
+    {
+        return $this->render('password/generate_password.html.twig');
+    }
 }
