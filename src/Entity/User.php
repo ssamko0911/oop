@@ -21,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
+    #[ORM\Column]
+    private int $sum;
+
     /**
      * @var string The hashed password
      */
@@ -96,4 +99,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getSum(): int
+    {
+        return $this->sum;
+    }
+
+    public function setSum(int $sum): User
+    {
+        $this->sum = $sum;
+
+        return $this;
+    }
+
+
+
+
 }
