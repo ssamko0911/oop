@@ -5,12 +5,12 @@ namespace App\Service;
 use App\Config\CharacterConfig;
 use App\DTO\PasswordParamDTO;
 use App\Entity\Enum\EnabledCharacterType;
+use App\Entity\MultipleRandomCharacter;
 use App\Manager\CharacterDistributionManager;
 
 final readonly class PasswordGeneratorService
 {
     public function __construct(
-        private MultipleRandomCharacterGenerator $generator,
         private CharacterDistributionManager $manager,
     ) {
     }
@@ -19,6 +19,8 @@ final readonly class PasswordGeneratorService
     {
         $tempPass = '';
         $config = CharacterConfig::getCharacterConfig();
+        $multipleRandomCharacters = new MultipleRandomCharacter();
+
 
         if ($passwordParams->numbers) {
             $this->manager->setEnabledCharacterTypes(EnabledCharacterType::NUMBERS->value);
@@ -31,7 +33,8 @@ final readonly class PasswordGeneratorService
         $distribution = $this->manager->getCharacterDistribution($passwordParams->length);
 
         foreach ($distribution as $charType => $length) {
-            $tempPass .= $this->generator->generate($length, $config[$charType]);
+            $multipleRandomCharacters->setCharacters($length, $config[$charType]);
+            $tempPass .= $multipleRandomCharacters->getCharacters();
         }
 
         return $this->shuffle($tempPass);
