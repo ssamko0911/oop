@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
 namespace App\Config;
+
 use App\Entity\Enum\EnabledCharacterType;
 
 class CharacterConfig
 {
-    /**
-     * @return array<string, int[]>
-     */
-    public static function getCharacterConfig(): array
+    /** @var array<string, int[]> */
+    private array $charPool;
+
+    public function __construct()
     {
-        return [
+        $this->charPool = [
             EnabledCharacterType::NUMBERS->value => range(48, 57),
             EnabledCharacterType::LOWERCASE->value => range(97, 122),
             EnabledCharacterType::UPPERCASE->value => range(65, 90),
@@ -24,5 +25,13 @@ class CharacterConfig
                 range(123, 126),
             )
         ];
+    }
+
+    /**
+     * @return array<string, int[]>
+     */
+    public function getCharacterConfig(string $charType): array
+    {
+        return $this->charPool[$charType];
     }
 }
