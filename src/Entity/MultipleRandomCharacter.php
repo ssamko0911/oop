@@ -2,30 +2,21 @@
 
 namespace App\Entity;
 
-final class MultipleRandomCharacter
+final readonly class MultipleRandomCharacter
 {
-    private string $characters = '';
-
-    public function getCharacters(): string
-    {
-        return $this->characters;
-    }
-
     /**
      * @param int $length
      * @param int[] $charPool
-     * @return void
+     * @return string
      */
-    public function setCharacters(int $length, array $charPool): void
+    public static function getMultipleCharacters(int $length, array $charPool): string
     {
         $multipleRandomChars = '';
-        $singleRandomChar = new SingleRandomCharacter($charPool);
 
         for ($i = 0; $i < $length; $i++) {
-            $singleRandomChar->setCharacter();
-            $multipleRandomChars .= $singleRandomChar->getCharacter();
+            $multipleRandomChars .= SingleRandomCharacter::getCharacterFromPool($charPool);
         }
 
-        $this->characters = $multipleRandomChars;
+        return $multipleRandomChars;
     }
 }

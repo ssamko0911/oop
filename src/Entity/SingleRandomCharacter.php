@@ -2,39 +2,17 @@
 
 namespace App\Entity;
 
-final class SingleRandomCharacter
+use InvalidArgumentException;
+
+final readonly class SingleRandomCharacter
 {
-    private string $character;
-
-    public function __construct(
-        /**  @var int[] $charPool */
-        private array $charPool
-    )
+    public static function getCharacterFromPool(array $charPool): string
     {
-    }
+        if (empty($charPool)) {
+            throw new InvalidArgumentException('CharacterPool cannot be empty');
+        }
 
-    public function getCharacter(): string
-    {
-        return $this->character;
-    }
-
-    public function setCharacter(): void
-    {
-        $charCode = $this->generateSingleCharacterNumber($this->charPool);
-        $this->character = $this->getSingleCharacter($charCode);
-    }
-
-    /**
-     * @param int[] $charPool
-     * @return int
-     */
-    private function generateSingleCharacterNumber(array $charPool): int
-    {
-        return $charPool[array_rand($charPool)]; // Warning !!! array_rand???
-    }
-
-    private function getSingleCharacter(int $charCode): string
-    {
+        $charCode = $charPool[array_rand($charPool)];
         return chr($charCode);
     }
 }
