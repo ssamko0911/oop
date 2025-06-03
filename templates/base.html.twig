@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Demo UI
         {% endblock %}
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
-        {% block javascripts %}
+        header, footer {
+            background: #eee;
+            padding: 10px;
+        }
+
+        nav a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>
+        {% block header %}
+            Serhii's sandbox
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </h1>
+    <nav>
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('password_generate') }}">Generate Password</a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+        <p>Dummy content</p>
+    {% endblock %}
+</main>
+
+<footer>
+    {% block footer %}
+        &copy; {{ "now"|date("Y") }} All rights reserved.
+    {% endblock %}
+</footer>
+
+</body>
 </html>
