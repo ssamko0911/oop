@@ -6,6 +6,13 @@
 parameters:
 
 services:
+    App\Service\MultipleRandomCharacterGenerator:
+        arguments:
+            $singleRandomCharacter: '@App\Entity\SingleRandomCharacter'
+    App\Service\SingleRandomCharacterGenerator:
+        arguments:
+            $charPool: '@App\Config\CharacterConfig'
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -19,6 +26,10 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
+        autowire: true
+        autoconfigure: true
+#    App\EventListener\ValidationExceptionListener:
+#        tags:
+#          - {name: kernel.event_listener, event: kernel.exception, method: onKernelException}
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
