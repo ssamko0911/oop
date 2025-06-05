@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\DTO\PasswordParamDTO;
+use App\Form\Type\PasswordGeneratorFormType;
 use App\Service\PasswordGeneratorService;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,11 +35,15 @@ class PasswordController extends AbstractController
                 $this->addFlash('error', $violation->getMessage());
             }
 
-            return $this->render('password/generate_password.html.twig');
+            return $this->render('password/generate_password.html.twig', [
+                'form' => $this->createForm(PasswordGeneratorFormType::class)->createView(),
+            ]);
         } catch (RuntimeException) {
             $this->addFlash('error', 'Something went wrong, try again later');
 
-            return $this->render('password/generate_password.html.twig');
+            return $this->render('password/generate_password.html.twig', [
+                'form' => $this->createForm(PasswordGeneratorFormType::class)->createView(),
+            ]);
         }
     }
 }
